@@ -2,7 +2,7 @@
 
 $cache_direcory = str_replace(DIR_FS_CATALOG, '', DIR_FS_LOGS);
 $current_time = time();
-$next_send = (HIPCHAT_LIMIT_MESSAGE + HIPCHAT_LAST_MESSAGE);
+$next_send = ((int)HIPCHAT_LIMIT_MESSAGE + (int)HIPCHAT_LAST_MESSAGE);
 if($current_time >= $next_send && HIPCHAT_ERROR_ENABLE == "true"){
     $content = '';
     $econtent = '';
@@ -56,5 +56,5 @@ if ($sendit == true){
     //close connection
     curl_close($ch);
     
-    $db->Execute("UPDATE ".TABLE_CONFIGURATION." SET configuration_value='".$current_time."' WHERE configuration_key='HIPCHAT_LAST_MESSAGE'");
+    $db->Execute("UPDATE ".TABLE_CONFIGURATION." SET configuration_value='".(int)$current_time."' WHERE configuration_key='HIPCHAT_LAST_MESSAGE'");
 }
